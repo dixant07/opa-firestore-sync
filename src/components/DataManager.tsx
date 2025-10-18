@@ -281,7 +281,7 @@ export function DataManager({ refreshTrigger }: DataManagerProps) {
                 value={newPath}
                 onChange={(e) => setNewPath(e.target.value)}
                 placeholder="e.g., users, resources, accesscontrol"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
               />
               <p className="text-xs text-gray-500 mt-1">
                 The path where data will be stored (accessible via /v1/data/{'{path}'})
@@ -315,7 +315,7 @@ export function DataManager({ refreshTrigger }: DataManagerProps) {
                 onChange={(e) => setJsonInput(e.target.value)}
                 placeholder="Enter valid JSON data..."
                 rows={12}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm text-gray-900"
               />
             </div>
 

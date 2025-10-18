@@ -1,5 +1,5 @@
 package test.policy
 
-allow {
+allow if {
     input.user == "admin"
 }
