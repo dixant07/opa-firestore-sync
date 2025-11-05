@@ -7,10 +7,11 @@ import { QueryTester } from '@/components/QueryTester';
 import { DataManager } from '@/components/DataManager';
 import { useNotifications } from '@/components/NotificationSystem';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import { AccessControlCenter } from '@/components/AccessControlCenter';
 import { opaClient } from '@/services/opaClient';
 import { Policy, HealthStatus } from '@/types/opa';
 
-type ViewMode = 'list' | 'editor' | 'query' | 'data';
+type ViewMode = 'list' | 'editor' | 'query' | 'data' | 'access';
 
 export default function Home() {
   const [viewMode, setViewMode] = useState<ViewMode>('list');
@@ -172,6 +173,19 @@ export default function Home() {
               </svg>
               Data Manager
             </button>
+            <button
+              onClick={() => setViewMode('access')}
+              className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                viewMode === 'access'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              <svg className="w-4 h-4 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              Access Control
+            </button>
           </div>
         </div>
       </nav>
@@ -216,6 +230,10 @@ export default function Home() {
 
         {viewMode === 'data' && (
           <DataManager />
+        )}
+
+        {viewMode === 'access' && (
+          <AccessControlCenter />
         )}
       </main>
 
