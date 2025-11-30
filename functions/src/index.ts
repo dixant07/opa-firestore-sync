@@ -5,11 +5,15 @@ import { initializeApp } from "firebase-admin/app";
 import { getFirestore, Timestamp } from "firebase-admin/firestore";
 import type { QueryDocumentSnapshot } from "firebase-admin/firestore";
 import { FirestoreData, FirestoreCollection } from "./types/firestore_types.js";
+import { onPermissionCreated, onPermissionUpdated, onPermissionDeleted } from "./opaSync.js";
 
 // Initialize Firebase Admin
 initializeApp();
 
 setGlobalOptions({ maxInstances: 10 });
+
+// Export OPA Sync Cloud Functions
+export { onPermissionCreated, onPermissionUpdated, onPermissionDeleted };
 
 export const helloWorld = onRequest((req, res) => {
   logger.info("Hello logs!", { structuredData: true });

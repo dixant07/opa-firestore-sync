@@ -477,7 +477,7 @@ export function DataManager({ refreshTrigger }: DataManagerProps) {
                   <span className="text-sm text-gray-600">Path: </span>
                   <span className="font-mono text-sm text-blue-600">/{viewingPath}</span>
                 </div>
-                <pre className="bg-gray-50 p-4 rounded-md text-sm overflow-auto max-h-80 border">
+                <pre className="bg-gray-50 p-4 rounded-md text-sm overflow-auto max-h-80 border text-gray-900">
                   {JSON.stringify(viewingData, null, 2)}
                 </pre>
               </div>

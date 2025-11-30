@@ -42,3 +42,12 @@ next-env.d.ts
 
 # venv
 .venv/
+
+# .md
+DEPLOY_RULES.txt
+DEPLOYMENT_SUCCESS.md
+FIRESTORE_TROUBLESHOOTING.md
+FIX_PERMISSION_ERROR.md
+PATH_STRUCTURE.md
+QUICK_FIX.md
+functions/README.md
