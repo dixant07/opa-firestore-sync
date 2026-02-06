@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OPA-Firestore Sync
+
+A Next.js web application for managing Open Policy Agent (OPA) policies with a user-friendly interface.
+
+## Features
+
+- 📋 **Policy Management** - Create, view, edit, and delete OPA policies
+- ✅ **Policy Validation** - Validate Rego syntax before saving
+- 🔍 **Query Tester** - Test policies with custom input data
+- 💾 **Data Manager** - Manage OPA data documents
+- 🔄 **Real-time Status** - Monitor OPA server connection status
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ 
+- OPA server running (locally or remote)
+
+### Installation
+
+```bash
+npm install
+```
+
+### Environment Configuration
+
+Create `.env.local` for local development:
+
+```env
+# Local OPA server
+NEXT_PUBLIC_OPA_SERVER_URL=http://localhost:8181
+OPA_SERVER_URL=http://localhost:8181
+```
+
+For production, create `.env.production` with your server IP:
+
+```env
+NEXT_PUBLIC_OPA_SERVER_URL=http://YOUR_SERVER_IP:8181
+OPA_SERVER_URL=http://YOUR_SERVER_IP:8181
+```
+
+### Running the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to access the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Running OPA Server Locally
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Download OPA binary from https://www.openpolicyagent.org/docs/latest/#running-opa
+opa run --server
+```
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── api/opa/           # Centralized API routes for OPA operations
+│   │   ├── policies/      # Policy CRUD endpoints
+│   │   ├── data/          # Data management endpoints
+│   │   ├── query/         # Query endpoint
+│   │   ├── health/        # Health check endpoint
+│   │   └── compile/       # Policy validation endpoint
+│   ├── page.tsx           # Main application page
+│   └── layout.tsx         # Root layout
+├── components/            # React UI components
+├── lib/
+│   └── opa-server.ts      # Server-side OPA client
+├── services/
+│   └── opaClient.ts       # Client-side API wrapper
+└── types/
+    └── opa.ts             # TypeScript type definitions
+examples/
+└── sample-policy.rego     # Example Rego policy
+```
+
+## API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/opa/policies` | GET, POST | List or create policies |
+| `/api/opa/policies/[id]` | GET, PUT, DELETE | Single policy operations |
+| `/api/opa/data` | GET, PUT | Root data operations |
+| `/api/opa/data/[...path]` | GET, PUT, DELETE, PATCH | Path-specific data |
+| `/api/opa/query` | POST | Query policies with input |
+| `/api/opa/health` | GET | Server health check |
+| `/api/opa/compile` | POST | Validate Rego syntax |
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [OPA Documentation](https://www.openpolicyagent.org/docs/)
+- [Rego Policy Language](https://www.openpolicyagent.org/docs/latest/policy-language/)
+- [Next.js Documentation](https://nextjs.org/docs)

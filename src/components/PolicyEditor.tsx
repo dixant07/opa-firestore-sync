@@ -32,6 +32,7 @@ export function PolicyEditor({ policyId, onSave, onCancel }: PolicyEditorProps) 
     if (policyId) {
       loadPolicy();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [policyId]);
 
   const loadPolicy = async () => {
@@ -41,18 +42,18 @@ export function PolicyEditor({ policyId, onSave, onCancel }: PolicyEditorProps) 
       setLoading(true);
       setError(null);
       const loadedPolicy = await opaClient.getPolicy(policyId);
-      
+
       // Debug logging
       console.log('Loaded policy:', JSON.stringify(loadedPolicy, null, 2));
       console.log('Policy content type:', typeof loadedPolicy.content);
       console.log('Policy content:', loadedPolicy.content);
-      
+
       // Validate that content is a string
       if (typeof loadedPolicy.content !== 'string') {
         console.error('Policy content is not a string:', typeof loadedPolicy.content);
         throw new Error(`Invalid policy content type: expected string, got ${typeof loadedPolicy.content}`);
       }
-      
+
       setPolicy(loadedPolicy);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to load policy';
@@ -140,9 +141,9 @@ export function PolicyEditor({ policyId, onSave, onCancel }: PolicyEditorProps) 
       await opaClient.compilePolicy(safePolicyContent);
       setValidationResult({ valid: true, message: 'Policy syntax is valid' });
     } catch (err) {
-      setValidationResult({ 
-        valid: false, 
-        message: err instanceof Error ? err.message : 'Validation failed' 
+      setValidationResult({
+        valid: false,
+        message: err instanceof Error ? err.message : 'Validation failed'
       });
     } finally {
       setValidating(false);
@@ -169,7 +170,7 @@ export function PolicyEditor({ policyId, onSave, onCancel }: PolicyEditorProps) 
     reader.onload = (e) => {
       const content = e.target?.result as string;
       setPolicy(prev => ({ ...prev, content }));
-      
+
       // Auto-set policy ID from filename if not set
       if (!policy.id) {
         const filename = file.name.replace(/\.rego$/, '');
@@ -240,16 +241,15 @@ export function PolicyEditor({ policyId, onSave, onCancel }: PolicyEditorProps) 
         )}
 
         {validationResult && (
-          <div className={`mb-4 p-4 border rounded-md ${
-            validationResult.valid 
-              ? 'bg-green-50 border-green-200' 
+          <div className={`mb-4 p-4 border rounded-md ${validationResult.valid
+              ? 'bg-green-50 border-green-200'
               : 'bg-red-50 border-red-200'
-          }`}>
+            }`}>
             <div className="flex">
-              <svg 
-                className={`w-5 h-5 ${validationResult.valid ? 'text-green-400' : 'text-red-400'}`} 
-                fill="none" 
-                viewBox="0 0 24 24" 
+              <svg
+                className={`w-5 h-5 ${validationResult.valid ? 'text-green-400' : 'text-red-400'}`}
+                fill="none"
+                viewBox="0 0 24 24"
                 stroke="currentColor"
               >
                 {validationResult.valid ? (
@@ -259,14 +259,12 @@ export function PolicyEditor({ policyId, onSave, onCancel }: PolicyEditorProps) 
                 )}
               </svg>
               <div className="ml-3">
-                <h3 className={`text-sm font-medium ${
-                  validationResult.valid ? 'text-green-800' : 'text-red-800'
-                }`}>
+                <h3 className={`text-sm font-medium ${validationResult.valid ? 'text-green-800' : 'text-red-800'
+                  }`}>
                   {validationResult.valid ? 'Validation Successful' : 'Validation Failed'}
                 </h3>
-                <p className={`text-sm mt-1 ${
-                  validationResult.valid ? 'text-green-700' : 'text-red-700'
-                }`}>
+                <p className={`text-sm mt-1 ${validationResult.valid ? 'text-green-700' : 'text-red-700'
+                  }`}>
                   {validationResult.message}
                 </p>
               </div>

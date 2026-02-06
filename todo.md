@@ -1,2 +1,0 @@
-- implement firestore sync with opa server
-- fetching data.json and policy rego files from firestore whenever the data.json or policy rego file changes

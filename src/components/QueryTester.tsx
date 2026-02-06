@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useState } from 'react';
@@ -168,17 +169,16 @@ export function QueryTester({ className = '' }: QueryTesterProps) {
                       {formatJson(result)}
                     </pre>
                   </div>
-                  
+
                   {result.result !== undefined && (
                     <div className="mb-4">
                       <h4 className="text-sm font-medium text-gray-700 mb-2">Decision:</h4>
-                      <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                        result.result === true 
+                      <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${result.result === true
                           ? 'bg-green-100 text-green-800'
                           : result.result === false
-                          ? 'bg-red-100 text-red-800'
-                          : 'bg-gray-100 text-gray-800'
-                      }`}>
+                            ? 'bg-red-100 text-red-800'
+                            : 'bg-gray-100 text-gray-800'
+                        }`}>
                         {result.result === true ? (
                           <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

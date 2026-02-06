@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // TypeScript types for OPA client
+// Note: OPA returns dynamic JSON structures, so 'any' types are necessary in some places
 
 export interface Policy {
   id: string;

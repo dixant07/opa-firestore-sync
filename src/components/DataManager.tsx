@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -38,10 +39,10 @@ export function DataManager({ refreshTrigger }: DataManagerProps) {
       setLoading(true);
       setError(null);
       const allData = await opaClient.getAllData();
-      
+
       // Convert the nested data structure to a flat list of data items
       const items: DataItem[] = [];
-      
+
       const extractPaths = (obj: any, currentPath: string = '') => {
         if (obj && typeof obj === 'object' && obj.result) {
           extractPaths(obj.result, currentPath);
@@ -49,21 +50,21 @@ export function DataManager({ refreshTrigger }: DataManagerProps) {
           Object.keys(obj).forEach(key => {
             const newPath = currentPath ? `${currentPath}/${key}` : key;
             const value = obj[key];
-            
+
             if (value && typeof value === 'object') {
               items.push({
                 path: newPath,
                 data: value,
                 size: JSON.stringify(value).length
               });
-              
+
               // Recursively extract nested paths
               extractPaths(value, newPath);
             }
           });
         }
       };
-      
+
       extractPaths(allData);
       setDataItems(items);
     } catch (err) {
@@ -87,8 +88,8 @@ export function DataManager({ refreshTrigger }: DataManagerProps) {
       } else if (errorMessage.includes('Unexpected end of JSON input')) {
         friendlyError = 'Incomplete JSON: Missing closing brackets or quotes';
       }
-      return { 
-        isValid: false, 
+      return {
+        isValid: false,
         error: friendlyError
       };
     }
@@ -157,13 +158,13 @@ export function DataManager({ refreshTrigger }: DataManagerProps) {
       setUploading(true);
       const parsedData = JSON.parse(jsonInput);
       await opaClient.putData(newPath, parsedData);
-      
+
       addNotification({
         type: 'success',
         title: 'Data Uploaded',
         message: `Successfully uploaded data to path: ${newPath}`,
       });
-      
+
       setNewPath('');
       setJsonInput('');
       setShowAddForm(false);
@@ -223,7 +224,7 @@ export function DataManager({ refreshTrigger }: DataManagerProps) {
         }
       }
     };
-    
+
     setJsonInput(JSON.stringify(sampleData, null, 2));
     setNewPath('accesscontrol');
   };
@@ -269,7 +270,7 @@ export function DataManager({ refreshTrigger }: DataManagerProps) {
       {showAddForm && (
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-lg font-medium text-gray-900 mb-4">Upload Data</h3>
-          
+
           <div className="space-y-4">
             <div>
               <label htmlFor="dataPath" className="block text-sm font-medium text-gray-700 mb-1">
@@ -427,7 +428,7 @@ export function DataManager({ refreshTrigger }: DataManagerProps) {
       {/* Data Browser */}
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">Data Browser</h2>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Data List */}
           <div>
@@ -444,7 +445,7 @@ export function DataManager({ refreshTrigger }: DataManagerProps) {
                     <div className="flex-1">
                       <div className="font-mono text-sm text-blue-600">/{item.path}</div>
                       <div className="text-xs text-gray-500 mt-1">
-                        {typeof item.data === 'object' ? 'Object' : typeof item.data} • 
+                        {typeof item.data === 'object' ? 'Object' : typeof item.data} •
                         {JSON.stringify(item.data).length} characters
                       </div>
                     </div>

@@ -90,10 +90,9 @@ export default function Home() {
             <div className="flex items-center">
               <h1 className="text-2xl font-bold text-gray-900">OPA Policy Manager</h1>
               <div className="ml-4 flex items-center">
-                <div className={`w-2 h-2 rounded-full mr-2 ${
-                  serverStatus === 'online' ? 'bg-green-500' : 
+                <div className={`w-2 h-2 rounded-full mr-2 ${serverStatus === 'online' ? 'bg-green-500' :
                   serverStatus === 'offline' ? 'bg-red-500' : 'bg-yellow-500'
-                }`}></div>
+                  }`}></div>
                 <span className={`text-sm font-medium ${getStatusColor()}`}>
                   Server: {getStatusText()}
                 </span>
@@ -108,9 +107,11 @@ export default function Home() {
                 </button>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-2">
-              <span className="text-sm text-gray-500">139.59.91.77:8181</span>
+              <span className="text-sm text-gray-500">
+                {process.env.NEXT_PUBLIC_OPA_SERVER_URL || 'OPA Server'}
+              </span>
             </div>
           </div>
         </div>
@@ -122,11 +123,10 @@ export default function Home() {
           <div className="flex space-x-8">
             <button
               onClick={() => setViewMode('list')}
-              className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                viewMode === 'list'
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}
+              className={`py-4 px-1 border-b-2 font-medium text-sm ${viewMode === 'list'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
             >
               <svg className="w-4 h-4 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -135,11 +135,10 @@ export default function Home() {
             </button>
             <button
               onClick={() => setViewMode('editor')}
-              className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                viewMode === 'editor'
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}
+              className={`py-4 px-1 border-b-2 font-medium text-sm ${viewMode === 'editor'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
             >
               <svg className="w-4 h-4 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -148,11 +147,10 @@ export default function Home() {
             </button>
             <button
               onClick={() => setViewMode('query')}
-              className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                viewMode === 'query'
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}
+              className={`py-4 px-1 border-b-2 font-medium text-sm ${viewMode === 'query'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
             >
               <svg className="w-4 h-4 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -161,11 +159,10 @@ export default function Home() {
             </button>
             <button
               onClick={() => setViewMode('data')}
-              className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                viewMode === 'data'
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}
+              className={`py-4 px-1 border-b-2 font-medium text-sm ${viewMode === 'data'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
             >
               <svg className="w-4 h-4 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
@@ -187,7 +184,7 @@ export default function Home() {
               <div className="ml-3">
                 <h3 className="text-sm font-medium text-red-800">Server Connection Error</h3>
                 <p className="text-sm text-red-700 mt-1">
-                  Cannot connect to OPA server at 139.59.91.77:8181. Please check if the server is running and accessible.
+                  Cannot connect to OPA server. Please check if the server is running and accessible.
                 </p>
               </div>
             </div>
@@ -227,17 +224,17 @@ export default function Home() {
               OPA Policy Manager - Connected to DigitalOcean Server
             </div>
             <div className="flex items-center space-x-4 text-sm text-gray-500">
-              <a 
-                href="https://www.openpolicyagent.org/docs/" 
-                target="_blank" 
+              <a
+                href="https://www.openpolicyagent.org/docs/"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-gray-700"
               >
                 OPA Documentation
               </a>
-              <a 
-                href="https://www.openpolicyagent.org/docs/latest/policy-language/" 
-                target="_blank" 
+              <a
+                href="https://www.openpolicyagent.org/docs/latest/policy-language/"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-gray-700"
               >
